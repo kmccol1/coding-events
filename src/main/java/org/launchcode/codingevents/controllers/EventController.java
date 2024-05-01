@@ -26,4 +26,10 @@ public class EventController
 
         return "events/index";
     }
+
+    @GetMapping("create") //lives at /events/create route.
+    public String renderCreateEventForm()
+    {
+        return "events/create";
+    }
 }
