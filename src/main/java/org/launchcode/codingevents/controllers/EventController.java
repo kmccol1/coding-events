@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @RequestMapping("events")
 public class EventController
 {
-    private static ArrayList<String> events = new ArrayList<>();
+    private static ArrayList<String> events = new ArrayList<>(); //non-persistent, exists in memory of program only.
     @GetMapping
     public String createList(Model model)
     {
