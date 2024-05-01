@@ -7,16 +7,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("events")
 public class EventController
 {
-    private static ArrayList<String> events = new ArrayList<>(); //non-persistent, exists in memory of program only.
+    private static HashMap<String, String> events = new HashMap<>(); //non-persistent, exists in memory of program only.
     @GetMapping
     public String createList(Model model)
     {
+        events.put("Runtime exception", "An error occurred during execution.");
+        events.put("Load", "Program begins running.");
+        events.put("Quit", "Program quit running.");
+        events.put("Buffer overflow", "A program's memory capacity was exceeded.");
+        events.put("SQL Injection", "User input used to query the SQL DB.");
         model.addAttribute("events",events);
         return "events/index";
     }
@@ -28,9 +33,10 @@ public class EventController
     }
 
     @PostMapping("create") //lives at /events/create route.
-    public String createEvent(@RequestParam String eventName) //parameter name must match the html element name for Spring Boot to work here.
+    public String createEvent(@RequestParam String eventName, @RequestParam String eventDesc) //parameter name must match the html element name for Spring Boot to work here.
     {
-        events.add(eventName);
+        //events.add(eventName);
+        events.put(eventName, eventDesc);
         return "redirect:/events"; //Returns redirect response 300 level HTTP response...
         // the /events IS needed for the redirect view to properly work or else 404 errors.
     }
