@@ -3,7 +3,9 @@ package org.launchcode.codingevents.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 
@@ -11,19 +13,11 @@ import java.util.ArrayList;
 @RequestMapping("events")
 public class EventController
 {
-    //Insert controller code here...
-    @GetMapping()
+    private static ArrayList<String> events = new ArrayList<>();
+    @GetMapping
     public String createList(Model model)
     {
-        ArrayList<String> eventList = new ArrayList<>();
-        eventList.add("Runtime exception");
-        eventList.add("Logic error");
-        eventList.add("Compile time exception");
-        eventList.add("Buffer overflow");
-        eventList.add("Cross site request forgery");
-
-        model.addAttribute("eventList",eventList);
-
+        model.addAttribute("events",events);
         return "events/index";
     }
 
@@ -31,5 +25,13 @@ public class EventController
     public String renderCreateEventForm()
     {
         return "events/create";
+    }
+
+    @PostMapping("create") //lives at /events/create route.
+    public String createEvent(@RequestParam String eventName) //parameter name must match the html element name for Spring Boot to work here.
+    {
+        events.add(eventName);
+        return "redirect:/events"; //Returns redirect response 300 level HTTP response...
+        // the /events IS needed for the redirect view to properly work or else 404 errors.
     }
 }

@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController
 {
     //Insert controller code here...
-    @GetMapping()
-    public String getName()
+    @GetMapping
+    public String index()
     {
-        return "Hello, Spring!";
+        return "index";
     }
 }
