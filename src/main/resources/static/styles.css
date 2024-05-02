@@ -3,3 +3,15 @@ body
 font-size:18px;
 color:purple;
 }
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid purple;
+}
+
+th,
+td {
+  padding: 20px;
+}

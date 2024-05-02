@@ -22,12 +22,14 @@
                 <tr>
                     <th>Event Name</th>
                     <th>Event Description</th>
+                    <th>Event Address</th>
                 </tr>
             </thead>
             <th:block th:each="event : ${events}">
                 <tr>
                     <td th:text="${event.getKey()}"></td>
                     <td th:text="${event.getValue()}"></td>
+                    <td th:replace="fragments :: address"></td>
                 </tr>
             </th:block>
         </table>
