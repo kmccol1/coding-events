@@ -28,7 +28,7 @@
             <th:block th:each="event : ${events}">
                 <tr>
                     <td th:text="${event.name}"></td>
-                    <td th:text="${event.toString()}"></td>
+                    <td th:text="${event.getDesc()}"></td>
                     <td th:replace="fragments :: address"></td>
                 </tr>
             </th:block>

@@ -26,11 +26,11 @@ public class EventController
 //        events.put("Quit", "Program quit running.");
 //        events.put("Buffer overflow", "A program's memory capacity was exceeded.");
 //        events.put("SQL Injection", "User input used to query the SQL DB.");
-        events.add(new Event("Runtime exception"));
-        events.add(new Event("Load"));
-        events.add(new Event("Quit"));
-        events.add(new Event("Buffer overflow"));
-        events.add(new Event("SQL Injection"));
+        events.add(new Event("Runtime exception", "An error occurred during execution."));
+        events.add(new Event("Load", "Program begins running."));
+        events.add(new Event("Quit", "Program quit running."));
+        events.add(new Event("Buffer overflow", "A program's memory capacity was exceeded."));
+        events.add(new Event("SQL Injection", "User input used to query the SQL DB."));
         model.addAttribute("events",events);
         return "events/index";
     }
@@ -46,7 +46,7 @@ public class EventController
     {
         //events.add(eventName);
         //events.put(eventName, eventDesc);
-        events.add(new Event(eventName));
+        events.add(new Event(eventName, eventDesc));
         return "redirect:/events"; //Returns redirect response 300 level HTTP response...
         // the /events IS needed for the redirect view to properly work or else 404 errors.
     }
