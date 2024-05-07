@@ -1,5 +1,6 @@
 package org.launchcode.codingevents.controllers;
 
+import org.launchcode.codingevents.data.EventData;
 import org.springframework.stereotype.Controller;
 import org.launchcode.codingevents.models.Event;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import java.util.List;
 public class EventController
 {
     //private static HashMap<String, String> events = new HashMap<>(); //non-persistent, exists in memory of program only.
-    private static List<Event> events = new ArrayList<>();
+    //private static List<Event> events = new ArrayList<>();
     @GetMapping
     public String createList(Model model)
     {
@@ -26,12 +27,12 @@ public class EventController
 //        events.put("Quit", "Program quit running.");
 //        events.put("Buffer overflow", "A program's memory capacity was exceeded.");
 //        events.put("SQL Injection", "User input used to query the SQL DB.");
-        events.add(new Event("Runtime exception", "An error occurred during execution."));
-        events.add(new Event("Load", "Program begins running."));
-        events.add(new Event("Quit", "Program quit running."));
-        events.add(new Event("Buffer overflow", "A program's memory capacity was exceeded."));
-        events.add(new Event("SQL Injection", "User input used to query the SQL DB."));
-        model.addAttribute("events",events);
+        EventData.add(new Event("Runtime exception", "An error occurred during execution."));
+        EventData.add(new Event("Load", "Program begins running."));
+        EventData.add(new Event("Quit", "Program quit running."));
+        EventData.add(new Event("Buffer overflow", "A program's memory capacity was exceeded."));
+        EventData.add(new Event("SQL Injection", "User input used to query the SQL DB."));
+        model.addAttribute("events", EventData.getAll());
         return "events/index";
     }
 
@@ -46,7 +47,7 @@ public class EventController
     {
         //events.add(eventName);
         //events.put(eventName, eventDesc);
-        events.add(new Event(eventName, eventDesc));
+        EventData.add(new Event(eventName, eventDesc));
         return "redirect:/events"; //Returns redirect response 300 level HTTP response...
         // the /events IS needed for the redirect view to properly work or else 404 errors.
     }
