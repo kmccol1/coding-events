@@ -51,4 +51,28 @@ public class EventController
         return "redirect:/events"; //Returns redirect response 300 level HTTP response...
         // the /events IS needed for the redirect view to properly work or else 404 errors.
     }
+
+    @GetMapping("delete")
+    public String displayDeleteEventForm(Model model)
+    {
+        model.addAttribute("title", "Delete Events");
+        model.addAttribute("events", EventData.getAll());
+        return "events/delete";
+    }
+
+    @PostMapping("delete")
+    public String processDeleteEventsForm(@RequestParam(required = false) int[] eventIds) //we need to know the data type,
+    // the ids are ints, all same name in the html,
+    // can be int[] must be same as name attribute in the form element.
+    {
+        if(eventIds != null)
+        {
+            for (int id: eventIds)
+            {
+                EventData.remove(id);
+            }
+        }
+
+        return "redirect:/events";
+    }
 }
