@@ -93,12 +93,12 @@ public class EventController
     }
 
     @PostMapping("edit")
-    public String processEditForm(int eventId, String name, String description)
+    public String processEditForm(int eventId, String name, String desc)
     {
         Event myEvent = EventData.getById(eventId);
 
         myEvent.setName(name);
-        myEvent.setDesc(description);
+        myEvent.setDesc(desc);
 
         return "redirect:/events";
     }
