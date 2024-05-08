@@ -24,11 +24,11 @@ public class EventController
 //        events.put("Quit", "Program quit running.");
 //        events.put("Buffer overflow", "A program's memory capacity was exceeded.");
 //        events.put("SQL Injection", "User input used to query the SQL DB.");
-        EventData.add(new Event("Runtime exception", "An error occurred during execution."));
-        EventData.add(new Event("Load", "Program begins running."));
-        EventData.add(new Event("Quit", "Program quit running."));
-        EventData.add(new Event("Buffer overflow", "A program's memory capacity was exceeded."));
-        EventData.add(new Event("SQL Injection", "User input used to query the SQL DB."));
+//        EventData.add(new Event("Runtime exception", "An error occurred during execution."));
+//        EventData.add(new Event("Load", "Program begins running."));
+//        EventData.add(new Event("Quit", "Program quit running."));
+//        EventData.add(new Event("Buffer overflow", "A program's memory capacity was exceeded."));
+//        EventData.add(new Event("SQL Injection", "User input used to query the SQL DB."));
         model.addAttribute("events", EventData.getAll());
         return "events/index";
     }
@@ -71,6 +71,34 @@ public class EventController
                 EventData.remove(id);
             }
         }
+
+        return "redirect:/events";
+    }
+
+    @GetMapping("edit/{eventId}")
+    public String displayEditForm(Model model, @PathVariable int eventId)
+    {
+        Event myEvent;
+        String title = "Edit Event ";
+
+        myEvent = EventData.getById(eventId);
+
+        model.addAttribute("event", myEvent);
+
+        title += myEvent.getName() + " (id=" + myEvent.getId() + ")";
+
+        model.addAttribute("title", title);
+
+        return "events/edit";
+    }
+
+    @PostMapping("edit")
+    public String processEditForm(int eventId, String name, String description)
+    {
+        Event myEvent = EventData.getById(eventId);
+
+        myEvent.setName(name);
+        myEvent.setDesc(description);
 
         return "redirect:/events";
     }
