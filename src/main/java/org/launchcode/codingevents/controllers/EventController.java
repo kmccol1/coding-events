@@ -29,6 +29,7 @@ public class EventController
 //        EventData.add(new Event("Quit", "Program quit running."));
 //        EventData.add(new Event("Buffer overflow", "A program's memory capacity was exceeded."));
 //        EventData.add(new Event("SQL Injection", "User input used to query the SQL DB."));
+        model.addAttribute("title", "All Events");
         model.addAttribute("events", EventData.getAll());
         return "events/index";
     }

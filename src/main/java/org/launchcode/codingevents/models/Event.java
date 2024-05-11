@@ -1,18 +1,28 @@
 package org.launchcode.codingevents.models;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.util.Objects;
 
 public class Event
 {
     private int id;
     private static int nextId = 1; //every obj shares same val...
+    @NotBlank
+    @Size(min = 3, max = 50, message = "Name field must be between 3 and 50 characters in length. Please try again.")
     private String name;
+    @Size(max = 500, message = "Description must not exceed 500 characters. Please try again.")
     private String desc;
+    @Email(message = "Invalid email. Please try again.")
+    private String contactEmail;
 
-    public Event(String name, String aDesc)
+    public Event(String name, String aDesc, String email)
     {
         this.name = name;
         this.desc = aDesc;
+        this.contactEmail = email;
         this.id = nextId;
         nextId++;
     }
@@ -35,6 +45,14 @@ public class Event
 
     public int getId() {
         return id;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
     }
 
     @Override

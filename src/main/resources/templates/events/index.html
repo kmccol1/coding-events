@@ -23,6 +23,7 @@
                     <th>ID</th>
                     <th>Event Name</th>
                     <th>Event Description</th>
+                    <th>Email Address</th>
                     <th>Event Address</th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@
                     <td th:text="${event.id}"></td>
                     <td th:text="${event.name}"></td>
                     <td th:text="${event.desc}"></td>
+                    <td th:text="${event.contactEmail}"></td>
                     <td th:replace="fragments :: address"></td>
                     <td>
                         <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
