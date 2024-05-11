@@ -1,6 +1,6 @@
 body
 {
-font-size:18px;
+font-size:14px;
 color:purple;
 }
 
@@ -14,4 +14,9 @@ table {
 th,
 td {
   padding: 20px;
+}
+
+.error
+{
+    color:red;
 }
