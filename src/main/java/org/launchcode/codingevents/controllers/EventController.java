@@ -1,9 +1,11 @@
 package org.launchcode.codingevents.controllers;
 
+import jakarta.validation.Valid;
 import org.launchcode.codingevents.data.EventData;
 import org.springframework.stereotype.Controller;
 import org.launchcode.codingevents.models.Event;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -42,13 +44,26 @@ public class EventController
 
     @PostMapping("create") //lives at /events/create route.
     //public String createEvent(@RequestParam String eventName, @RequestParam String eventDesc) //parameter name must match the html element name for Spring Boot to work here.
-    public String createEvent(@ModelAttribute Event newEvent)
+    public String createEvent(@ModelAttribute @Valid Event newEvent, Errors errors, Model model)
     {
         //events.add(eventName);
         //events.put(eventName, eventDesc);
         //EventData.add(new Event(eventName, eventDesc));
-        EventData.add(newEvent);
-        return "redirect:/events"; //Returns redirect response 300 level HTTP response...
+        String result;
+
+        if(errors.hasErrors())
+        {
+            model.addAttribute("title", "Create Event");
+            model.addAttribute("errorMsg", "Bad data!");
+            result = "events/create";
+        }
+        else
+        {
+            EventData.add(newEvent);
+            result = "redirect:/events";
+        }
+
+        return result; //Returns redirect response 300 level HTTP response...
         // the /events IS needed for the redirect view to properly work or else 404 errors.
     }
 

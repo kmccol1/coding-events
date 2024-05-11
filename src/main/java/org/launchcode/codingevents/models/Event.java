@@ -15,6 +15,7 @@ public class Event
     private String name;
     @Size(max = 500, message = "Description must not exceed 500 characters. Please try again.")
     private String desc;
+    @NotBlank
     @Email(message = "Invalid email. Please try again.")
     private String contactEmail;
 
