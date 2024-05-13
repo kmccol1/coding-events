@@ -18,28 +18,35 @@ public class Event
     @Email(message = "Invalid email. Please try again.")
     private String contactEmail;
 
-    @NotBlank(message="Location cannot be left blank.")
-    private String location;
+//    @NotBlank(message="Location cannot be left blank.")
+//    private String location;
+//
+//    //@Positive(message = "Registration can only be marked as true.")
+//    private boolean mustRegister;
+//
+//    @Positive(message="Number of attendees must be one or more.")
+//    private int numberOfAttendees;
+//
+//    @Future(message = "Event date must be in the future.")
+//    private Date eventDate;
 
-    @Positive(message = "Registration can only be marked as true.")
-    private boolean mustRegister;
+    private EventType type;
 
-    @Positive(message="Number of attendees must be one or more.")
-    private int numberOfAttendees;
-
-    @Future(message = "Event date must be in the future.")
-    private Date eventDate;
-
-    public Event(String name, String aDesc, String email)
+    public Event(String name, String aDesc, String email, EventType aType)
     {
+        this();
         this.name = name;
         this.desc = aDesc;
         this.contactEmail = email;
+        this.type = aType;
+
+    }
+
+    public Event()
+    {
         this.id = nextId;
         nextId++;
     }
-
-    public Event(){}
 
     public String getName() {
         return name;
@@ -69,36 +76,44 @@ public class Event
         this.contactEmail = contactEmail;
     }
 
-    public String getLocation() {
-        return location;
+//    public String getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(String location) {
+//        this.location = location;
+//    }
+//
+//    public boolean isMustRegister() {
+//        return mustRegister;
+//    }
+//
+//    public void setMustRegister(boolean mustRegister) {
+//        this.mustRegister = mustRegister;
+//    }
+//
+//    public int getNumberOfAttendees() {
+//        return numberOfAttendees;
+//    }
+//
+//    public void setNumberOfAttendees(int numberOfAttendees) {
+//        this.numberOfAttendees = numberOfAttendees;
+//    }
+//
+//    public Date getEventDate() {
+//        return eventDate;
+//    }
+//
+//    public void setEventDate(Date eventDate) {
+//        this.eventDate = eventDate;
+//    }
+
+    public EventType getType() {
+        return type;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public boolean isMustRegister() {
-        return mustRegister;
-    }
-
-    public void setMustRegister(boolean mustRegister) {
-        this.mustRegister = mustRegister;
-    }
-
-    public int getNumberOfAttendees() {
-        return numberOfAttendees;
-    }
-
-    public void setNumberOfAttendees(int numberOfAttendees) {
-        this.numberOfAttendees = numberOfAttendees;
-    }
-
-    public Date getEventDate() {
-        return eventDate;
-    }
-
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     @Override

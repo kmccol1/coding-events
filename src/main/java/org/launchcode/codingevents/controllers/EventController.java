@@ -2,6 +2,7 @@ package org.launchcode.codingevents.controllers;
 
 import jakarta.validation.Valid;
 import org.launchcode.codingevents.data.EventData;
+import org.launchcode.codingevents.models.EventType;
 import org.springframework.stereotype.Controller;
 import org.launchcode.codingevents.models.Event;
 import org.springframework.ui.Model;
@@ -9,28 +10,15 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Controller
 @RequestMapping("events")
 public class EventController
 {
-    //private static HashMap<String, String> events = new HashMap<>(); //non-persistent, exists in memory of program only.
-    //private static List<Event> events = new ArrayList<>();
     @GetMapping
     public String createList(Model model)
     {
-//        events.put("Runtime exception", "An error occurred during execution.");
-//        events.put("Load", "Program begins running.");
-//        events.put("Quit", "Program quit running.");
-//        events.put("Buffer overflow", "A program's memory capacity was exceeded.");
-//        events.put("SQL Injection", "User input used to query the SQL DB.");
-//        EventData.add(new Event("Runtime exception", "An error occurred during execution."));
-//        EventData.add(new Event("Load", "Program begins running."));
-//        EventData.add(new Event("Quit", "Program quit running."));
-//        EventData.add(new Event("Buffer overflow", "A program's memory capacity was exceeded."));
-//        EventData.add(new Event("SQL Injection", "User input used to query the SQL DB."));
         model.addAttribute("title", "All Events");
         model.addAttribute("events", EventData.getAll());
         return "events/index";
@@ -41,32 +29,48 @@ public class EventController
     {
         model.addAttribute("title", "Create Event");
         model.addAttribute(new Event());
+        model.addAttribute("types", EventType.values());
         return "events/create";
     }
 
     @PostMapping("create") //lives at /events/create route.
-    //public String createEvent(@RequestParam String eventName, @RequestParam String eventDesc) //parameter name must match the html element name for Spring Boot to work here.
     public String createEvent(@ModelAttribute @Valid Event newEvent, Errors errors, Model model)
     {
-        //events.add(eventName);
-        //events.put(eventName, eventDesc);
-        //EventData.add(new Event(eventName, eventDesc));
-        String result;
+//        String result;
+//
+//        if(errors.hasErrors())
+//        {
+//            model.addAttribute("title", "Create Event");
+//            //model.addAttribute(new Event());
+//            model.addAttribute("types", EventType.values());
+//            result = "events/create";
+//        }
+//        else
+//        {
+//            EventData.add(newEvent);
+//            result = "redirect:/events";
+//        }
+//
+//        return result; //Returns redirect response 300 level HTTP response...
+//        // the /events IS needed for the redirect view to properly work or else 404 errors.
+//        if(errors.hasErrors()) {
+//            model.addAttribute("types", EventType.values());
+//            model.addAttribute("title", "Create Event");
+//            return "events/create";
+//        }
+        //error is above in the if....
 
         if(errors.hasErrors())
         {
-            model.addAttribute("title", "Create Event");
-            //model.addAttribute("errorMsg", "Bad data!");
-            result = "events/create";
+            //model.addAttribute("errors", errors.getAllErrors());
+            //model.addAttribute("types", EventType.values());
+            return "events/create";
         }
         else
         {
             EventData.add(newEvent);
-            result = "redirect:/events";
+            return "redirect:/events";
         }
-
-        return result; //Returns redirect response 300 level HTTP response...
-        // the /events IS needed for the redirect view to properly work or else 404 errors.
     }
 
     @GetMapping("delete")
