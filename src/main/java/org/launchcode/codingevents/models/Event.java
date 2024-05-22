@@ -13,7 +13,7 @@ public class Event
 {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     //private static int nextId = 1; //every obj shares same val...
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 50, message = "Name field must be between 3 and 50 characters in length. Please try again.")

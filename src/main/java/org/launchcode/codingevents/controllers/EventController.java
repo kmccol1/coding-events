@@ -125,7 +125,7 @@ public class EventController
     }
 
     @PostMapping("edit")
-    public String processEditForm(int eventId, String name, String desc)
+    public String processEditForm(Model model, @RequestParam int eventId, @RequestParam String name, @RequestParam String desc)
     {
         //Event myEvent = EventData.getById(eventId);
         Event myEvent = new Event();
@@ -134,10 +134,11 @@ public class EventController
         if (eventOptional.isPresent())
         {
             Event foundEvent = eventOptional.get();
-            foundEvent.setName(name);
-            foundEvent.setDesc(desc);
+            myEvent.setName(name);
+            myEvent.setDesc(desc);
+            eventRepository.deleteById(eventId);
+            eventRepository.save(myEvent);
         }
-
 
         return "redirect:/events";
     }
