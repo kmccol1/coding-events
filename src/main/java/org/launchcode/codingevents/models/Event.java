@@ -1,19 +1,17 @@
 package org.launchcode.codingevents.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.util.Date;
 import java.util.Objects;
-import jakarta.persistence.Entity;
 
 @Entity
 public class Event
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name="event_seq", sequenceName = "event_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_seq")
     private Integer id;
     //private static int nextId = 1; //every obj shares same val...
     @NotBlank(message = "Name is required.")
