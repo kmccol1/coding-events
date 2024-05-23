@@ -108,6 +108,7 @@ public class EventController
         Event myEvent = new Event();
         String title = "Edit Event ";
         Optional<Event> eventOptional = eventRepository.findById(eventId);
+        //myEvent = eventRepository.findById(eventId);
 
         //myEvent = EventData.getById(eventId);
         //myEvent = eventRepository.findById(eventId);
@@ -116,7 +117,7 @@ public class EventController
         {
             Event foundEvent = eventOptional.get();
             model.addAttribute("event", foundEvent);
-            title += myEvent.getName() + " (id=" + myEvent.getId() + ")";
+            title += eventOptional.get().getName() + " (id=" + eventOptional.get().getId() + ")";
         }
 
         model.addAttribute("title", title);
@@ -125,7 +126,7 @@ public class EventController
     }
 
     @PostMapping("edit")
-    public String processEditForm(Model model, @RequestParam int eventId, @RequestParam String name, @RequestParam String desc)
+    public String processEditForm(Model model, @RequestParam int eventId, @RequestParam String name, @RequestParam String description, @RequestParam String contactEmail)
     {
         //Event myEvent = EventData.getById(eventId);
         Event myEvent = new Event();
@@ -135,7 +136,9 @@ public class EventController
         {
             Event foundEvent = eventOptional.get();
             myEvent.setName(name);
-            myEvent.setDesc(desc);
+            myEvent.setDescription(description);
+            myEvent.setContactEmail(contactEmail);
+            myEvent.setType(foundEvent.getType());
             eventRepository.deleteById(eventId);
             eventRepository.save(myEvent);
         }

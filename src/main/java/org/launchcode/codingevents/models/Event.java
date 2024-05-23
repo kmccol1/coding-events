@@ -17,6 +17,7 @@ public class Event
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 50, message = "Name field must be between 3 and 50 characters in length. Please try again.")
     private String name;
+    @Column(name="Description")
     @Size(max = 500, message = "Description must not exceed 500 characters. Please try again.")
     private String description;
     @NotBlank(message = "Email is required.")
@@ -61,12 +62,12 @@ public class Event
         this.name = name;
     }
 
-    public String getDesc() {
+    public String getDescription() {
         return this.description;
     }
 
-    public void setDesc(String desc) {
-        this.description = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getId() {
