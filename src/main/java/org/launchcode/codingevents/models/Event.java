@@ -1,6 +1,7 @@
 package org.launchcode.codingevents.models;
 
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
 
@@ -12,14 +13,14 @@ import jakarta.persistence.Entity;
 public class Event
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     //private static int nextId = 1; //every obj shares same val...
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 50, message = "Name field must be between 3 and 50 characters in length. Please try again.")
     private String name;
     @Size(max = 500, message = "Description must not exceed 500 characters. Please try again.")
-    private String desc;
+    private String description;
     @NotBlank(message = "Email is required.")
     @Email(message = "Invalid email. Please try again.")
     private String contactEmail;
@@ -42,7 +43,7 @@ public class Event
     {
         //this();
         this.name = name;
-        this.desc = aDesc;
+        this.description = aDesc;
         this.contactEmail = email;
         this.type = aType;
 
@@ -63,11 +64,11 @@ public class Event
     }
 
     public String getDesc() {
-        return desc;
+        return this.description;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.description = desc;
     }
 
     public int getId() {
