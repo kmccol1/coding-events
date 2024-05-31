@@ -21,8 +21,8 @@ public class Event extends AbstractEntity
     @Email(message = "Invalid email. Please try again.")
     private String contactEmail;
 
-//    @NotBlank(message="Location cannot be left blank.")
-//    private String location;
+    @NotBlank(message="Location cannot be left blank.")
+    private String location;
 //
 //    //@Positive(message = "Registration can only be marked as true.")
 //    private boolean mustRegister;
@@ -35,14 +35,14 @@ public class Event extends AbstractEntity
 
     private EventType type;
 
-    public Event(String name, String aDesc, String email, EventType aType)
+    public Event(String name, String aDesc, String email, String location, EventType aType)
     {
         //this();
         this.name = name;
         this.description = aDesc;
         this.contactEmail = email;
+        this.location = location;
         this.type = aType;
-
     }
 
     public Event()
@@ -75,14 +75,14 @@ public class Event extends AbstractEntity
         this.contactEmail = contactEmail;
     }
 
-//    public String getLocation() {
-//        return location;
-//    }
-//
-//    public void setLocation(String location) {
-//        this.location = location;
-//    }
-//
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
 //    public boolean isMustRegister() {
 //        return mustRegister;
 //    }

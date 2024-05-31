@@ -12,6 +12,7 @@
                     <th>Event Name</th>
                     <th>Event Description</th>
                     <th>Email Address</th>
+                    <th>Event Location</th>
                     <th>Event Address</th>
                     <th>Event Type</th>
                 </tr>
@@ -22,6 +23,7 @@
                     <td th:text="${event.name}"></td>
                     <td th:text="${event.description}"></td>
                     <td th:text="${event.contactEmail}"></td>
+                    <td th:text="${event.location}"></td>
                     <td th:replace="fragments :: address"></td>
                     <td th:text="${event.getType().getDisplayName()}"></td>
                     <td>
