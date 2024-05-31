@@ -6,12 +6,8 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
-public class EventCategory
+public class EventCategory extends AbstractEntity
 {
-    @Id
-    @SequenceGenerator(name="event_category_seq", sequenceName = "event_category_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_category_seq")
-    private int id;
     @Size(min=3, message = "Name must be at least 3 characters long")
     private String name;
 
@@ -25,10 +21,6 @@ public class EventCategory
 
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
@@ -37,16 +29,4 @@ public class EventCategory
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EventCategory that = (EventCategory) o;
-        return id == that.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

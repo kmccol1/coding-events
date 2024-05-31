@@ -7,12 +7,9 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class Event
+public class Event extends AbstractEntity
 {
-    @Id
-    @SequenceGenerator(name="event_seq", sequenceName = "event_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_seq")
-    private Integer id;
+
     //private static int nextId = 1; //every obj shares same val...
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 50, message = "Name field must be between 3 and 50 characters in length. Please try again.")
@@ -70,10 +67,6 @@ public class Event
         this.description = description;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getContactEmail() {
         return contactEmail;
     }
@@ -128,16 +121,7 @@ public class Event
         return this.getName();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return id == event.id;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+
+
 }
