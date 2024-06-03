@@ -66,14 +66,12 @@ public class EventController
         {
             //model.addAttribute("errors", errors.getAllErrors());
             //model.addAttribute("types", EventType.values());
+            model.addAttribute("title", "Create Event");
             return "events/create";
         }
-        else
-        {
-            //EventData.add(newEvent);
-            eventRepository.save(newEvent);
-            return "redirect:/events";
-        }
+
+        eventRepository.save(newEvent);
+        return "redirect:/events";
     }
 
     @GetMapping("delete")
@@ -130,10 +128,10 @@ public class EventController
         {
             Event foundEvent = eventOptional.get();
             myEvent.setName(name);
-            myEvent.setDescription(description);
-            myEvent.setContactEmail(contactEmail);
+            myEvent.getEventDetails().setDescription(description);
+            myEvent.getEventDetails().setContactEmail(contactEmail);
             myEvent.setEventCategory(foundEvent.getEventCategory());
-            myEvent.setLocation(location);
+            myEvent.getEventDetails().setLocation(location);
             eventRepository.deleteById(eventId);
             eventRepository.save(myEvent);
         }
