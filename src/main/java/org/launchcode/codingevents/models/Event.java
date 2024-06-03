@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +22,8 @@ public class Event extends AbstractEntity
     @Valid
     @NotNull
     private EventDetails eventDetails;
+    @ManyToMany
+    private final List<Tag> tags = new ArrayList<>();
 //
 //    //@Positive(message = "Registration can only be marked as true.")
 //    private boolean mustRegister;
@@ -101,5 +105,14 @@ public class Event extends AbstractEntity
 
     public void setEventDetails(EventDetails eventDetails) {
         this.eventDetails = eventDetails;
+    }
+
+    public void addTag(Tag tag)
+    {
+        this.tags.add(tag);
+    }
+
+    public List<Tag> getTags() {
+        return tags;
     }
 }
