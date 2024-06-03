@@ -14,7 +14,7 @@
                     <th>Email Address</th>
                     <th>Event Location</th>
                     <th>Event Address</th>
-                    <th>Event Type</th>
+                    <th>Event Category</th>
                 </tr>
             </thead>
             <th:block th:each="event : ${events}">
@@ -25,7 +25,7 @@
                     <td th:text="${event.contactEmail}"></td>
                     <td th:text="${event.location}"></td>
                     <td th:replace="fragments :: address"></td>
-                    <td th:text="${event.getType().getDisplayName()}"></td>
+                    <td th:text="${event.eventCategory.name}"></td>
                     <td>
                         <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
                     </td>

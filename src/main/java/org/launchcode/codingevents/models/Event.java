@@ -9,8 +9,6 @@ import java.util.Objects;
 @Entity
 public class Event extends AbstractEntity
 {
-
-    //private static int nextId = 1; //every obj shares same val...
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 50, message = "Name field must be between 3 and 50 characters in length. Please try again.")
     private String name;
@@ -20,7 +18,6 @@ public class Event extends AbstractEntity
     @NotBlank(message = "Email is required.")
     @Email(message = "Invalid email. Please try again.")
     private String contactEmail;
-
     @NotBlank(message="Location cannot be left blank.")
     private String location;
 //
@@ -33,16 +30,52 @@ public class Event extends AbstractEntity
 //    @Future(message = "Event date must be in the future.")
 //    private Date eventDate;
 
-    private EventType type;
+    //private EventType type;
 
-    public Event(String name, String aDesc, String email, String location, EventType aType)
+//    CONFERENCE("Conference"),
+//    MEETUP("Meetup"),
+//    WORKSHOP("Workshop"),
+//    SOCIAL("Social"),
+//    SEMINAR("Seminar"),
+//    GALA("Gala"),
+//    DISCUSSION("Discussion"),
+//    MEETING("Meeting"),
+//    ROUNDTABLE("Roundtable"),
+//    ALLHANDS("Allhands"),
+//    CONVERSATION("Conversation"),
+//    LECTURE("Lecture"),
+//    BALL("Ball"),
+//    FIESTA("Fiesta"),
+//    FESTIVAL("Festival"),
+//    SESSION("Session"),
+//    STANDUP("Standup"),
+//    DEBRIEF("Debrief"),
+//    CONVENTION("Convention"),
+//    CLASS("Class"),
+//    GATHERING("Gathering"),
+//    FORUM("Forum"),
+//    ASSEMBLY("Assembly"),
+//    CAUCUS("Caucus"),
+//    PARTY("Party"),
+//    FUNCTION("Function"),
+//    JAMBOREE("Jamboree"),
+//    REUNION("Reunion"),
+//    GAME("Game"),
+//    CELEBRATION("Celebration"),
+//    MOVEMENT("Movement");
+    @ManyToOne
+    @NotNull(message = "Category field is required! Please try again.")
+    private EventCategory eventCategory;
+
+    public Event(String name, String aDesc, String email, String location, EventCategory category)
     {
         //this();
         this.name = name;
         this.description = aDesc;
         this.contactEmail = email;
         this.location = location;
-        this.type = aType;
+        //this.type = aType;
+        this.eventCategory = category;
     }
 
     public Event()
@@ -82,37 +115,12 @@ public class Event extends AbstractEntity
     public void setLocation(String location) {
         this.location = location;
     }
-
-//    public boolean isMustRegister() {
-//        return mustRegister;
-//    }
-//
-//    public void setMustRegister(boolean mustRegister) {
-//        this.mustRegister = mustRegister;
-//    }
-//
-//    public int getNumberOfAttendees() {
-//        return numberOfAttendees;
-//    }
-//
-//    public void setNumberOfAttendees(int numberOfAttendees) {
-//        this.numberOfAttendees = numberOfAttendees;
-//    }
-//
-//    public Date getEventDate() {
-//        return eventDate;
-//    }
-//
-//    public void setEventDate(Date eventDate) {
-//        this.eventDate = eventDate;
-//    }
-
-    public EventType getType() {
-        return type;
+    public EventCategory getEventCategory() {
+        return eventCategory;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public void setEventCategory(EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
     }
 
     @Override
@@ -120,8 +128,5 @@ public class Event extends AbstractEntity
     {
         return this.getName();
     }
-
-
-
 
 }
