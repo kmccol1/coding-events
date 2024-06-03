@@ -3,6 +3,7 @@ package org.launchcode.codingevents.controllers;
 import jakarta.validation.Valid;
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepositoryDAO;
+import org.launchcode.codingevents.models.EventCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.launchcode.codingevents.models.Event;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Controller
@@ -22,10 +24,29 @@ public class EventController
     private EventCategoryRepository eventCategoryRepository;
 
     @GetMapping
-    public String createList(Model model)
+    public String createList(@RequestParam(required = false) Integer categoryId, Model model)
     {
-        model.addAttribute("title", "All Events");
-        model.addAttribute("events", eventRepository.findAll());
+        //To use the categoryId @RequestParam...'/events?categoryId=<categoryId>'
+        if(categoryId == null)
+        {
+            model.addAttribute("title", "All Events");
+            model.addAttribute("events", eventRepository.findAll());
+        }
+        else
+        {
+            Optional<EventCategory> result = eventCategoryRepository.findById(categoryId);
+            if(result.isEmpty())
+            {
+                model.addAttribute("title", "Invalid Category ID: " + categoryId);
+            }
+            else
+            {
+                EventCategory category = result.get();
+                model.addAttribute("title", "Events in Category: " + category.getName());
+                model.addAttribute("events", category.getEvents());
+            }
+        }
+
         return "events/index";
     }
 
@@ -86,10 +107,6 @@ public class EventController
         Event myEvent = new Event();
         String title = "Edit Event ";
         Optional<Event> eventOptional = eventRepository.findById(eventId);
-        //myEvent = eventRepository.findById(eventId);
-
-        //myEvent = EventData.getById(eventId);
-        //myEvent = eventRepository.findById(eventId);
 
         if (eventOptional.isPresent())
         {
@@ -106,7 +123,6 @@ public class EventController
     @PostMapping("edit")
     public String processEditForm(Model model, @RequestParam int eventId, @RequestParam String name, @RequestParam String description, @RequestParam String contactEmail, @RequestParam String location)
     {
-        //Event myEvent = EventData.getById(eventId);
         Event myEvent = new Event();
         Optional<Event> eventOptional = eventRepository.findById(eventId);
 
@@ -116,7 +132,6 @@ public class EventController
             myEvent.setName(name);
             myEvent.setDescription(description);
             myEvent.setContactEmail(contactEmail);
-            //myEvent.setType(foundEvent.getType());
             myEvent.setEventCategory(foundEvent.getEventCategory());
             myEvent.setLocation(location);
             eventRepository.deleteById(eventId);
