@@ -22,7 +22,7 @@ public class Event extends AbstractEntity
     @Valid
     @NotNull
     private EventDetails eventDetails;
-    @ManyToMany
+    @ManyToMany()
     private final List<Tag> tags = new ArrayList<>();
 //
 //    //@Positive(message = "Registration can only be marked as true.")
