@@ -126,7 +126,7 @@ public class EventController
     }
 
     @PostMapping("edit")
-    public String processEditForm(Model model, @RequestParam int eventId, @RequestParam String name, @RequestParam String description, @RequestParam String contactEmail)
+    public String processEditForm(Model model, @RequestParam int eventId, @RequestParam String name, @RequestParam String description, @RequestParam String contactEmail, @RequestParam String location)
     {
         //Event myEvent = EventData.getById(eventId);
         Event myEvent = new Event();
@@ -139,6 +139,7 @@ public class EventController
             myEvent.setDescription(description);
             myEvent.setContactEmail(contactEmail);
             myEvent.setType(foundEvent.getType());
+            myEvent.setLocation(location);
             eventRepository.deleteById(eventId);
             eventRepository.save(myEvent);
         }
