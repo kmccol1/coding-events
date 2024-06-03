@@ -3,7 +3,9 @@ package org.launchcode.codingevents.controllers;
 import jakarta.validation.Valid;
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepositoryDAO;
+import org.launchcode.codingevents.data.TagRepository;
 import org.launchcode.codingevents.models.EventCategory;
+import org.launchcode.codingevents.models.dto.EventTagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.launchcode.codingevents.models.Event;
@@ -22,6 +24,9 @@ public class EventController
     private EventRepositoryDAO eventRepository;
     @Autowired
     private EventCategoryRepository eventCategoryRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     @GetMapping
     public String createList(@RequestParam(required = false) Integer categoryId, Model model)
@@ -153,5 +158,18 @@ public class EventController
         }
 
         return "events/detail";
+    }
+
+    public String displayAddTagForm(@RequestParam Integer eventId, Model model)
+    {
+        Optional<Event> result = eventRepository.findById(eventId);
+
+        Event event = result.get();
+
+        model.addAttribute("title", "Add Tag to: " + event.getName());
+        model.addAttribute("tags", tagRepository.findAll());
+        model.addAttribute("event", event);
+        model.addAttribute(new EventTagDTO());
+        return "events/add-tag.html";
     }
 }
